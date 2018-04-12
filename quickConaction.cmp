@@ -1,9 +1,0 @@
-<aura:component controller="quickConactionctlr" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
-    <aura:attribute type="Contact" name="insertContact" default="{'sObjectType':'Contact'}"/>
-    <lightning:input type="text" label="Enter firstname" aura:id="fname" />
-    <lightning:input type="text" label="Enter lastname" aura:id="lname" />
-    <lightning:input type="Date" label="Birth date" aura:id="bday" />
-    <lightning:input type="email" label="Email" name="email" aura:id="email" />
-    <lightning:button variant="brand" label="Submit" onclick="{!c.handleClick}" />
-
-</aura:component>
