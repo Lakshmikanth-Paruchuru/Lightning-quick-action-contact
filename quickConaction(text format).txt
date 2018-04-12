@@ -1,0 +1,56 @@
+
+
+//quickConaction.cmp
+<aura:component controller="quickConactionctlr" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute type="Contact" name="insertContact" default="{'sObjectType':'Contact'}"/>
+    <lightning:input type="text" label="Enter firstname" aura:id="fname" />
+    <lightning:input type="text" label="Enter lastname" aura:id="lname" />
+    <lightning:input type="Date" label="Birth date" aura:id="bday" />
+    <lightning:input type="email" label="Email" name="email" aura:id="email" />
+    <lightning:button variant="brand" label="Submit" onclick="{!c.handleClick}" />
+
+</aura:component>
+
+
+//quickConactionController.js
+({
+	handleClick : function(component, event, helper) {
+		var fname = component.find("fname").get("v.value");
+        var  lname = component.find("lname").get("v.value");
+        var bday = component.find("bday").get("v.value");
+        var email = component.find("email").get("v.value");
+        var accId = component.get("v.recordId");
+        var action = component.get("c.InsertCon");
+        action.setParams({
+            'fname' : fname, 'lname' : lname, 'accId': accId, 'bday' : bday, 'email' : email
+        });
+        action.setCallback(this,function(response){
+            var state = response.getState();
+            if(state == 'SUCCESS'){
+            }
+        });
+        
+      $A.enqueueAction(action);
+	}
+})
+
+// quickConactionctlr.apxc
+public class quickConactionctlr {
+@AuraEnabled
+     public static void InsertCon(string fname, string lname, string accId, date bday, string email){
+            //public static void InsertCon(Contact objCon, string accId)
+
+         //objCon.acccountID = accId;
+          //insert ObjCOn;
+
+         contact c = new contact();
+         c.FirstName = fname;
+         c.LastName = lname;
+         c.AccountId = accId;
+         c.Birthdate = bday;
+         c.Email = email;
+       
+        
+        upsert c;
+    }
+}
